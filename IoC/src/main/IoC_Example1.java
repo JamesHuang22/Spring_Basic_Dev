@@ -46,7 +46,24 @@ public class IoC_Example1 {
             cartService.addToCart(currentUser, book);
             //...
         }
-    }   
+    }
+    /*
+
+    在IoC模式下，控制权发生了反转，即从应用程序转移到了IoC容器，
+    所有组件不再由应用程序自己创建和配置，而是由IoC容器负责，
+    这样，应用程序只需要直接使用已经创建好并且配置好的组件。
+    为了能让组件在IoC容器中被“装配”出来，需要某种“注入”机制，
+    例如，BookService自己并不会创建DataSource，
+    而是等待外部通过setDataSource()方法来注入一个DataSource：   
+    */
+    public class BookService {
+        private DataSource dataSource;
+
+        public void setDataSource(DataSource dataSource) {
+            this.dataSource = dataSource;
+        }
+    }
+
 
 }
 
