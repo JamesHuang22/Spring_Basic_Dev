@@ -1,0 +1,24 @@
+
+<!-- Sample xml file for configuration 告诉Spring 的IoC容器应该如何创建并组装Bean-->
+<!-- File for IoC/src/main/IoC_Example2.java -->
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userService" class="com.itranswarp.learnjava.service.UserService">
+        <property name="mailService" ref="mailService" />
+    </bean>
+
+    <bean id="mailService" class="com.itranswarp.learnjava.service.MailService" />
+</beans>
+
+<!-- 如果注入的不是bean 而是boolean, int, String...则通过value注入，例如，创建一个HikariDataSource-->
+<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+    <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test" />
+    <property name="username" value="root" />
+    <property name="password" value="password" />
+    <property name="maximumPoolSize" value="10" />
+    <property name="autoCommit" value="true" />
+</bean>
