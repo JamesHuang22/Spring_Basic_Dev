@@ -3,6 +3,7 @@ package com.example.restservice.controller;
 
 import com.example.restservice.model.Book;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 /*
     @RequestMapping :上面的示例中没有指定 GET 与 PUT、POST 等，因为**@RequestMapping默认映射所有HTTP Action**，你可以使用@RequestMapping(method=ActionType)来缩小这个映射。
  */
+@Slf4j
 public class BookController {
     private List<Book> books = new ArrayList<>();
 
@@ -35,6 +37,13 @@ public class BookController {
     public ResponseEntity getBookByName (@RequestParam("name") String name) {
         List<Book> results = books.stream().filter(book -> book.getName().equals(name)).collect(Collectors.toList());
         return ResponseEntity.ok(results);
+    }
+
+    @DeleteMapping("/book")
+    public ResponseEntity deleteBookByName(@RequestParam("name") String name) {
+        log.info("Starting deleting the book {}.", name);
+        books.removeIf(book -> book.getName().equals(name));
+        return ResponseEntity.ok(books);
     }
 
 
