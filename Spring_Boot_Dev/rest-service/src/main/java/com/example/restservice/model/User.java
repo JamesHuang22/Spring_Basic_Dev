@@ -14,11 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Table(name = "user_t")
 public class User {
-    /*
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    
-     */
     private UUID id;
     private String email;
     private String password;
